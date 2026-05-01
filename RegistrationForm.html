@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <link href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f5f5f5; }
+    .container { max-width: 400px; margin-top: 50px; padding: 20px; background-color: #fff; border-radius: 5px; }
+    .form-control { margin-bottom: 10px; }
+    .btn { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3 class="text-center">Fill in the data</h3>
+    <form id="signupForm">
+      <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+      <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+      <input type="password" class="form-control" id="password" placeholder="Password" required>
+      <input type="password" class="form-control" id="confirmPassword" placeholder="Password confirm" required>
+      <input type="text" class="form-control" id="street" placeholder="Street" required>
+      <input type="text" class="form-control" id="city" placeholder="City" required>
+      
+      <!-- Country field -->
+      <input list="countryOptions" class="form-control" id="country" placeholder="Select or type country" required>
+      <datalist id="countryOptions"></datalist>
+      
+      <input type="text" class="form-control" id="postcode" placeholder="Postcode" required>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="terms"> Accept terms and conditions
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+  </div>
+
+  <script>
+    // List of countries
+    const countries = [
+      "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
+      "Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium",
+      "Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria",
+      "Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad",
+      "Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic",
+      "Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea",
+      "Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany",
+      "Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary",
+      "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan",
+      "Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia",
+      "Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali",
+      "Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia",
+      "Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand",
+      "Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine",
+      "Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia",
+      "Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino",
+      "Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia",
+      "Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan",
+      "Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo",
+      "Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine",
+      "United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Venezuela",
+      "Vietnam","Yemen","Zambia","Zimbabwe"
+    ];
+
+    const datalist = document.getElementById("countryOptions");
+    
+    // Populate datalist when user focuses on input
+    document.getElementById("country").addEventListener("focus", () => {
+      if(datalist.options.length === 0) {
+        countries.forEach(c => {
+          const option = document.createElement("option");
+          option.value = c;
+          datalist.appendChild(option);
+        });
+      }
+    });
+
+    // Form validation
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirmPassword').value;
+      const terms = document.getElementById('terms').checked;
+
+      if (password !== confirm) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      if (!terms) {
+        alert('You must accept terms and conditions.');
+        return;
+      }
+
+      alert('Registration successful!');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
